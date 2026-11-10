@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Engineer Daily Report</title>
+    <title>Service Engineer Daily Report - Glossy Edition</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- html2pdf.js CDN -->
@@ -11,502 +11,607 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
                     colors: {
-                        navy: {
-                            50: '#f0f4f8',
-                            100: '#d9e2ec',
-                            500: '#334e68',
-                            700: '#102a43',
-                            800: '#0b1b2b',
-                            900: '#06101e',
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.65)',
+                            border: 'rgba(255, 255, 255, 0.75)',
+                            darkBorder: 'rgba(255, 255, 255, 0.3)',
+                            shadow: 'rgba(31, 38, 135, 0.08)',
                         }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Custom styles for printing & signature canvas */
+        /* Ambient Mesh Gradient Background */
+        body {
+            background: radial-gradient(at 0% 0%, rgba(224, 231, 255, 0.9) 0px, transparent 50%),
+                        radial-gradient(at 100% 0%, rgba(238, 242, 255, 0.9) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(243, 232, 255, 0.9) 0px, transparent 50%),
+                        radial-gradient(at 0% 100%, rgba(224, 242, 254, 0.9) 0px, transparent 50%),
+                        linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* Ambient glowing glass elements */
+        .ambient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .orb-1 { width: 350px; height: 350px; background: #818cf8; top: -100px; left: -100px; }
+        .orb-2 { width: 400px; height: 400px; background: #38bdf8; bottom: -150px; right: -100px; }
+        .orb-3 { width: 300px; height: 300px; background: #c084fc; top: 40%; left: 30%; }
+
+        /* Glossy Glass Card Base Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.62);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.07),
+                        inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .glass-card-header {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.4) 100%);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* Specular Glossy Input Elements */
+        .glass-input {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15), inset 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+            outline: none;
+        }
+
+        /* 3D Glossy Buttons */
+        .btn-glossy-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #2563eb 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn-glossy-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: inherit;
+        }
+        .btn-glossy-primary:hover {
+            transform: translateY(-1.5px);
+            box-shadow: 0 8px 22px rgba(37, 99, 235, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-glossy-dark {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+        .btn-glossy-dark::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+        .btn-glossy-dark:hover {
+            transform: translateY(-1.5px);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.4);
+        }
+
+        /* Signature Pads */
         .signature-canvas {
             touch-action: none;
-            background-color: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1.5px dashed #cbd5e1;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.2s ease;
         }
-        
-        /* Printable document styling wrapper */
+        .signature-canvas:hover {
+            border-color: #818cf8;
+        }
+
+        /* Printable Document Frame Container */
         #pdf-template {
             width: 210mm;
             min-height: 297mm;
-            background: white;
+            background: #ffffff;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12), 0 0 15px rgba(0, 0, 0, 0.03);
         }
 
-        /* Screen preview styling */
-        @media screen {
-            .preview-container {
-                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            }
+        /* Machine Status Glossy Radio Badges */
+        .status-pill {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .status-pill::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
         }
 
-        /* Print styles */
+        /* Print Override */
         @media print {
-            body * {
-                visibility: hidden;
-            }
-            #pdf-template, #pdf-template * {
-                visibility: visible;
-            }
+            body * { visibility: hidden; }
+            #pdf-template, #pdf-template * { visibility: visible; }
             #pdf-template {
                 position: absolute;
-                left: 0;
-                top: 0;
+                left: 0; top: 0;
                 width: 100%;
                 margin: 0;
-                padding: 15mm;
+                padding: 12mm;
                 box-shadow: none !important;
             }
-            .no-print {
-                display: none !important;
-            }
+            .no-print { display: none !important; }
         }
     </style>
 </head>
-<body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="text-slate-800 antialiased relative">
 
-    <!-- Top Navigation Header -->
-    <header class="bg-navy-900 text-white shadow-md sticky top-0 z-40 no-print">
+    <!-- Glowing Background Orbs -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 no-print backdrop-blur-md bg-slate-900/80 border-b border-white/10 text-white shadow-xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 p-2 rounded-lg text-white">
-                    <i class="fa-solid fa-gears text-xl"></i>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-blue-500 to-cyan-400 p-0.5 shadow-lg shadow-indigo-500/30 flex items-center justify-center">
+                    <div class="w-full h-full bg-slate-900/40 rounded-[10px] flex items-center justify-center backdrop-blur-sm">
+                        <i class="fa-solid fa-screwdriver-wrench text-cyan-300 text-lg"></i>
+                    </div>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight tracking-wide">FIELD SERVICE REPORT</h1>
-                    <p class="text-xs text-slate-400">Technical Daily Reporting & Maintenance Log</p>
+                    <h1 class="font-extrabold text-base sm:text-lg tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-300">
+                        SERVICE ENGINEER DAILY REPORT
+                    </h1>
+                    <p class="text-[11px] text-cyan-300/80 font-medium tracking-wider uppercase">Glossy Technical Portal</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-2 sm:space-x-3">
-                <button onclick="saveDraft()" title="Save current form draft to LocalStorage" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium rounded-lg transition flex items-center space-x-1.5 border border-slate-700">
-                    <i class="fa-solid fa-floppy-disk"></i>
+
+            <!-- Header Action Controls -->
+            <div class="flex items-center space-x-2.5">
+                <button onclick="saveDraft()" title="Save Draft" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 text-xs font-semibold border border-white/10 transition backdrop-blur-md flex items-center space-x-2">
+                    <i class="fa-solid fa-floppy-disk text-indigo-400"></i>
                     <span class="hidden sm:inline">Save Draft</span>
                 </button>
-                <button onclick="toggleHistoryDrawer()" title="View saved report history" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium rounded-lg transition flex items-center space-x-1.5 border border-slate-700">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
+                <button onclick="toggleHistoryDrawer()" title="View History" class="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 text-xs font-semibold border border-white/10 transition backdrop-blur-md flex items-center space-x-2">
+                    <i class="fa-solid fa-clock-rotate-left text-cyan-400"></i>
                     <span class="hidden sm:inline">History</span>
-                    <span id="history-count" class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
+                    <span id="history-count" class="bg-indigo-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
                 </button>
-                <button onclick="exportToPDF()" title="Download PDF document" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition flex items-center space-x-1.5">
-                    <i class="fa-solid fa-file-pdf text-base"></i>
+                <button onclick="exportToPDF()" title="Export PDF" class="btn-glossy-primary px-4 py-2 rounded-xl text-white text-xs sm:text-sm font-bold flex items-center space-x-2">
+                    <i class="fa-solid fa-file-pdf"></i>
                     <span>Export PDF</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Workspace -->
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Main Content Workspace Grid -->
+    <main class="relative z-10 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-        <!-- Left Form Column (6 Columns wide on LG) -->
-        <section class="lg:col-span-6 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col no-print">
-            <div class="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50 rounded-t-xl flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-pen-to-square text-blue-600"></i>
-                    <h2 class="font-semibold text-slate-800">Service Entry Form</h2>
+        <!-- Left Form Column (6 Cols LG) -->
+        <section class="lg:col-span-6 flex flex-col no-print">
+            <div class="glass-card rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+                
+                <!-- Card Header -->
+                <div class="glass-card-header p-4 sm:p-5 flex justify-between items-center">
+                    <div class="flex items-center space-x-2.5">
+                        <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-600">
+                            <i class="fa-solid fa-sliders text-base"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-bold text-slate-800 text-sm sm:text-base">Service Data Entry</h2>
+                            <p class="text-[11px] text-slate-500">Fill in technical details for the report</p>
+                        </div>
+                    </div>
+                    <button onclick="openConfirmModal('reset')" class="text-xs font-medium text-rose-600 hover:text-rose-700 px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-200/50 transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                        <span>Reset</span>
+                    </button>
                 </div>
-                <button onclick="resetForm()" class="text-xs text-rose-600 hover:text-rose-700 font-medium flex items-center space-x-1">
-                    <i class="fa-solid fa-rotate-left"></i>
-                    <span>Reset Form</span>
-                </button>
-            </div>
 
-            <form id="report-form" class="p-4 sm:p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-140px)]" onsubmit="event.preventDefault();">
+                <!-- Form Content Container -->
+                <form id="report-form" class="p-4 sm:p-6 space-y-6 overflow-y-auto max-h-[calc(100vh-140px)]" onsubmit="event.preventDefault();">
 
-                <!-- 1. General Info & Identification -->
-                <div class="space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-id-card text-slate-400"></i>
-                        <span>1. Basic Details</span>
-                    </h3>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Date -->
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Report Date *</label>
-                            <input type="date" id="field-date" oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <!-- SECTION 1: BASIC DETAILS -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-2 border-b border-slate-200/60 pb-2">
+                            <i class="fa-solid fa-id-card text-indigo-500 text-xs"></i>
+                            <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">1. Header & Contact Information</h3>
                         </div>
-                        <!-- WO / Job No -->
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Work Order / Ticket No.</label>
-                            <input type="text" id="field-wono" placeholder="e.g. WO-2026-889" oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Report Date *</label>
+                                <input type="date" id="field-date" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Work Order / Ticket No.</label>
+                                <input type="text" id="field-wono" placeholder="e.g. WO-2026-889" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Time In (Start) *</label>
+                                <input type="time" id="field-time-in" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Time Out (End) *</label>
+                                <input type="time" id="field-time-out" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
+                        </div>
+
+                        <!-- Dropdowns with Presets -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Engineer Select -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Service Engineer *</label>
+                                <select id="field-engineer-select" onchange="handleEngineerSelect(this.value)" class="glass-input w-full px-3 py-2 text-xs rounded-xl font-medium mb-2">
+                                    <option value="Ekkalak">Ekkalak</option>
+                                    <option value="Amphon">Amphon</option>
+                                    <option value="Sirawit">Sirawit</option>
+                                    <option value="Suratham">Suratham</option>
+                                    <option value="CUSTOM">+ Custom Engineer...</option>
+                                </select>
+                                <input type="text" id="field-engineer-custom" placeholder="Enter Engineer Name" oninput="updatePreview()" class="hidden glass-input w-full px-3 py-2 text-xs rounded-xl">
+                            </div>
+
+                            <!-- Customer Select -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Customer Name *</label>
+                                <select id="field-customer-select" onchange="handleCustomerSelect(this.value)" class="glass-input w-full px-3 py-2 text-xs rounded-xl font-medium mb-2">
+                                    <option value="COMPEQ">COMPEQ</option>
+                                    <option value="Dynamic">Dynamic</option>
+                                    <option value="Avary">Avary</option>
+                                    <option value="Olympic">Olympic</option>
+                                    <option value="SYE">SYE</option>
+                                    <option value="Unitech">Unitech</option>
+                                    <option value="WUS">WUS</option>
+                                    <option value="CUSTOM">+ Custom Customer...</option>
+                                </select>
+                                <input type="text" id="field-customer-custom" placeholder="Enter Customer Name" oninput="updatePreview()" class="hidden glass-input w-full px-3 py-2 text-xs rounded-xl">
+                            </div>
+                        </div>
+
+                        <!-- Site Location & Contact Person -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Site / Factory Location</label>
+                                <input type="text" id="field-site-location" placeholder="e.g. Plant 2, Ayutthaya" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Customer Representative</label>
+                                <input type="text" id="field-customer-rep" placeholder="e.g. Mr. Somchai (Prod Mgr)" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Start Time -->
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Time In (Start) *</label>
-                            <input type="time" id="field-time-in" oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <!-- SECTION 2: MACHINE & SERVICE CATEGORY -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-2 border-b border-slate-200/60 pb-2">
+                            <i class="fa-solid fa-microchip text-indigo-500 text-xs"></i>
+                            <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">2. Equipment & Service Category</h3>
                         </div>
-                        <!-- End Time -->
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Time Out (End) *</label>
-                            <input type="time" id="field-time-out" oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Engineer Name -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Machine / Model Name *</label>
+                                <input type="text" id="field-machine-name" placeholder="e.g. CNC Drilling Router X8" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Serial Number / Asset ID</label>
+                                <input type="text" id="field-serial-no" placeholder="e.g. SN-2026-991A" oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl">
+                            </div>
+                        </div>
+
                         <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Engineer Name *</label>
-                            <select id="field-engineer-select" onchange="handleEngineerSelect(this.value)" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-2">
-                                <option value="Ekkalak">Ekkalak</option>
-                                <option value="Amphon">Amphon</option>
-                                <option value="Sirawit">Sirawit</option>
-                                <option value="Suratham">Suratham</option>
-                                <option value="CUSTOM">+ Custom Name...</option>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Service Category *</label>
+                            <select id="field-service-type" onchange="updatePreview()" class="glass-input w-full px-3 py-2 text-xs rounded-xl font-medium">
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Installation">Installation</option>
+                                <option value="Repair">Repair</option>
+                                <option value="Troubleshooting">Troubleshooting</option>
+                                <option value="Inspection">Inspection</option>
+                                <option value="Commissioning">Commissioning</option>
+                                <option value="Production Support">Production Support</option>
+                                <option value="Other">Other</option>
                             </select>
-                            <input type="text" id="field-engineer-custom" placeholder="Enter Engineer Name" oninput="updatePreview()" class="hidden w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                         </div>
 
-                        <!-- Customer Name -->
+                        <!-- Glossy Machine Status Selectors -->
                         <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Customer Name *</label>
-                            <select id="field-customer-select" onchange="handleCustomerSelect(this.value)" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-2">
-                                <option value="COMPEQ">COMPEQ</option>
-                                <option value="Dynamic">Dynamic</option>
-                                <option value="Avary">Avary</option>
-                                <option value="Olympic">Olympic</option>
-                                <option value="SYE">SYE</option>
-                                <option value="Unitech">Unitech</option>
-                                <option value="WUS">WUS</option>
-                                <option value="CUSTOM">+ Custom Customer...</option>
-                            </select>
-                            <input type="text" id="field-customer-custom" placeholder="Enter Customer Name" oninput="updatePreview()" class="hidden w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <label class="block text-xs font-semibold text-slate-700 mb-2">Machine Status After Service *</label>
+                            <div class="grid grid-cols-2 gap-2.5 text-xs">
+                                <label class="status-pill flex items-center p-2.5 border rounded-xl cursor-pointer bg-emerald-500/10 border-emerald-400/50 text-emerald-900 font-semibold hover:bg-emerald-500/20 shadow-sm">
+                                    <input type="radio" name="machine-status" value="Operational / Running" checked onchange="updatePreview()" class="text-emerald-600 focus:ring-emerald-500">
+                                    <span class="ml-2">Running</span>
+                                </label>
+                                <label class="status-pill flex items-center p-2.5 border rounded-xl cursor-pointer bg-amber-500/10 border-amber-400/50 text-amber-900 font-semibold hover:bg-amber-500/20 shadow-sm">
+                                    <input type="radio" name="machine-status" value="Operational with Warning" onchange="updatePreview()" class="text-amber-600 focus:ring-amber-500">
+                                    <span class="ml-2">Warning</span>
+                                </label>
+                                <label class="status-pill flex items-center p-2.5 border rounded-xl cursor-pointer bg-blue-500/10 border-blue-400/50 text-blue-900 font-semibold hover:bg-blue-500/20 shadow-sm">
+                                    <input type="radio" name="machine-status" value="Pending Spare Parts" onchange="updatePreview()" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-2">Pending Parts</span>
+                                </label>
+                                <label class="status-pill flex items-center p-2.5 border rounded-xl cursor-pointer bg-rose-500/10 border-rose-400/50 text-rose-900 font-semibold hover:bg-rose-500/20 shadow-sm">
+                                    <input type="radio" name="machine-status" value="Down / Breakdown" onchange="updatePreview()" class="text-rose-600 focus:ring-rose-500">
+                                    <span class="ml-2">Breakdown</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <hr class="border-slate-100">
+                    <!-- SECTION 3: PROBLEM & ACTION -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-2 border-b border-slate-200/60 pb-2">
+                            <i class="fa-solid fa-clipboard-list text-indigo-500 text-xs"></i>
+                            <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">3. Symptom, Action & Recommendations</h3>
+                        </div>
 
-                <!-- 2. Machine & Equipment Details -->
-                <div class="space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-microchip text-slate-400"></i>
-                        <span>2. Machine / Equipment Info</span>
-                    </h3>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Machine / Equipment Name *</label>
-                            <input type="text" id="field-machine-name" placeholder="e.g. CNC Router X5" oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Problem Description & Diagnosis *</label>
+                            <textarea id="field-symptom" rows="3" placeholder="Detail reported issue, error codes, root cause diagnosis..." oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl resize-y"></textarea>
                         </div>
+
                         <div>
-                            <label class="block text-xs font-medium text-slate-700 mb-1">Serial Number / Asset No.</label>
-                            <input type="text" id="field-serial-no" placeholder="e.g. SN-99381-A" oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Action Taken & Solution *</label>
+                            <textarea id="field-action" rows="3" placeholder="Step-by-step procedures, adjustments, repairs, calibrations..." oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl resize-y"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Engineer Follow-up / Recommendations</label>
+                            <textarea id="field-recommendation" rows="2" placeholder="Next PM schedule, part reordering suggestions, precautionary advice..." oninput="updatePreview()" class="glass-input w-full px-3.5 py-2 text-xs rounded-xl resize-y"></textarea>
                         </div>
                     </div>
 
-                    <!-- Service Type -->
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Service Category / Type *</label>
-                        <select id="field-service-type" onchange="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="Breakdown Repair">Breakdown Repair</option>
-                            <option value="Routine PM">Routine Preventive Maintenance (PM)</option>
-                            <option value="Installation">Installation & Setup</option>
-                            <option value="Inspection/Calibration">Inspection & Calibration</option>
-                            <option value="Software/Technical Support">Software / Technical Support</option>
-                            <option value="Production Support">Production Support</option>
-                        </select>
+                    <!-- SECTION 4: SPARE PARTS TABLE -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-slate-200/60 pb-2">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa-solid fa-boxes-packing text-indigo-500 text-xs"></i>
+                                <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">4. Replaced Spare Parts</h3>
+                            </div>
+                            <button type="button" onclick="addPartRow()" class="px-3 py-1 rounded-lg bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-700 text-xs font-bold transition flex items-center space-x-1">
+                                <i class="fa-solid fa-plus text-[10px]"></i>
+                                <span>Add Part</span>
+                            </button>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-xl border border-white/60 shadow-inner bg-white/40">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-100/70 text-slate-600 font-bold border-b border-slate-200/80">
+                                    <tr>
+                                        <th class="p-2.5">Part Name</th>
+                                        <th class="p-2.5">Part Number</th>
+                                        <th class="p-2.5 w-16 text-center">Qty</th>
+                                        <th class="p-2.5 w-20">Unit</th>
+                                        <th class="p-2.5">Remarks</th>
+                                        <th class="p-2.5 w-8"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="parts-table-body" class="divide-y divide-slate-200/50">
+                                    <!-- Dynamic Rows -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
 
-                <hr class="border-slate-100">
+                    <!-- SECTION 5: SIGNATURES -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-2 border-b border-slate-200/60 pb-2">
+                            <i class="fa-solid fa-signature text-indigo-500 text-xs"></i>
+                            <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">5. Digital Signatures</h3>
+                        </div>
 
-                <!-- 3. Work Details (Textareas) -->
-                <div class="space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-clipboard-list text-slate-400"></i>
-                        <span>3. Problem & Action Summary</span>
-                    </h3>
+                        <!-- Engineer Signature -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="text-xs font-semibold text-slate-700">Service Engineer Signature</label>
+                                <button type="button" onclick="clearSignature('engineer')" class="text-[11px] text-slate-500 hover:text-rose-600 font-medium">Clear Canvas</button>
+                            </div>
+                            <canvas id="engineer-pad" width="400" height="120" class="signature-canvas w-full h-28"></canvas>
+                        </div>
 
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Work Description / Symptom & Problem *</label>
-                        <textarea id="field-symptom" rows="3" placeholder="Describe the reported issue, error codes, or initial observation..." oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+                        <!-- Customer Signature -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="text-xs font-semibold text-slate-700">Customer Representative Signature</label>
+                                <button type="button" onclick="clearSignature('customer')" class="text-[11px] text-slate-500 hover:text-rose-600 font-medium">Clear Canvas</button>
+                            </div>
+                            <canvas id="customer-pad" width="400" height="120" class="signature-canvas w-full h-28"></canvas>
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Action Taken / Maintenance Performed *</label>
-                        <textarea id="field-action" rows="4" placeholder="Detail the step-by-step troubleshooting, repairs, or calibration conducted..." oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
-                    </div>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <!-- 4. Spare Parts Replaced -->
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-boxes-packing text-slate-400"></i>
-                            <span>4. Spare Parts Replaced</span>
-                        </h3>
-                        <button type="button" onclick="addPartRow()" class="px-2.5 py-1 text-xs font-medium bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-md transition flex items-center space-x-1">
-                            <i class="fa-solid fa-plus text-[10px]"></i>
-                            <span>Add Part</span>
+                    <!-- Bottom Action Buttons -->
+                    <div class="pt-4 flex items-center space-x-3">
+                        <button type="button" onclick="saveReportToHistory()" class="btn-glossy-dark flex-1 py-3 text-white font-bold rounded-xl text-xs sm:text-sm text-center">
+                            <i class="fa-solid fa-box-archive mr-1.5"></i> Save History
+                        </button>
+                        <button type="button" onclick="exportToPDF()" class="btn-glossy-primary flex-1 py-3 text-white font-bold rounded-xl text-xs sm:text-sm text-center">
+                            <i class="fa-solid fa-file-pdf mr-1.5"></i> Export PDF
                         </button>
                     </div>
-
-                    <div class="overflow-x-auto border border-slate-200 rounded-lg">
-                        <table class="w-full text-left text-xs">
-                            <thead class="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
-                                <tr>
-                                    <th class="p-2.5 w-1/3">Part No.</th>
-                                    <th class="p-2.5">Part Description</th>
-                                    <th class="p-2.5 w-20 text-center">Qty</th>
-                                    <th class="p-2.5 w-10 text-center"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="parts-table-body" class="divide-y divide-slate-100">
-                                <!-- Dynamic rows populated via JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <!-- 5. Machine Status & Recommendations -->
-                <div class="space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-gauge-high text-slate-400"></i>
-                        <span>5. Final Status & Follow-up</span>
-                    </h3>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-2">Machine Status After Service *</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                            <label class="flex items-center p-2.5 border rounded-lg cursor-pointer transition hover:bg-slate-50 text-emerald-800 border-emerald-200 bg-emerald-50/30">
-                                <input type="radio" name="machine-status" value="Operational / Running" checked onchange="updatePreview()" class="text-emerald-600 focus:ring-emerald-500">
-                                <span class="ml-2 font-medium">Operational / Running</span>
-                            </label>
-                            <label class="flex items-center p-2.5 border rounded-lg cursor-pointer transition hover:bg-slate-50 text-amber-800 border-amber-200 bg-amber-50/30">
-                                <input type="radio" name="machine-status" value="Operational with Warning" onchange="updatePreview()" class="text-amber-600 focus:ring-amber-500">
-                                <span class="ml-2 font-medium">Operational with Warning</span>
-                            </label>
-                            <label class="flex items-center p-2.5 border rounded-lg cursor-pointer transition hover:bg-slate-50 text-blue-800 border-blue-200 bg-blue-50/30">
-                                <input type="radio" name="machine-status" value="Pending Spare Parts" onchange="updatePreview()" class="text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 font-medium">Pending Spare Parts</span>
-                            </label>
-                            <label class="flex items-center p-2.5 border rounded-lg cursor-pointer transition hover:bg-slate-50 text-rose-800 border-rose-200 bg-rose-50/30">
-                                <input type="radio" name="machine-status" value="Down / Out of Service" onchange="updatePreview()" class="text-rose-600 focus:ring-rose-500">
-                                <span class="ml-2 font-medium">Down / Out of Service</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Follow-up / Recommendations</label>
-                        <textarea id="field-recommendation" rows="2" placeholder="Next PM schedule, recommended part replacements, operating precautions..." oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
-                    </div>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <!-- 6. Digital Signatures -->
-                <div class="space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-signature text-slate-400"></i>
-                        <span>6. Sign-off & Acknowledgement</span>
-                    </h3>
-
-                    <!-- Engineer Signature Pad -->
-                    <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <label class="text-xs font-medium text-slate-700">Engineer Signature</label>
-                            <button type="button" onclick="clearSignature('engineer')" class="text-[11px] text-slate-500 hover:text-rose-600">Clear Pad</button>
-                        </div>
-                        <canvas id="engineer-pad" width="400" height="120" class="signature-canvas w-full h-28"></canvas>
-                    </div>
-
-                    <!-- Customer Rep Name & Signature Pad -->
-                    <div class="pt-2">
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Customer Representative Name</label>
-                        <input type="text" id="field-customer-rep" placeholder="e.g. Mr. Somchai (Maintenance Manager)" oninput="updatePreview()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 mb-3">
-                        
-                        <div class="flex justify-between items-center mb-1">
-                            <label class="text-xs font-medium text-slate-700">Customer Signature</label>
-                            <button type="button" onclick="clearSignature('customer')" class="text-[11px] text-slate-500 hover:text-rose-600">Clear Pad</button>
-                        </div>
-                        <canvas id="customer-pad" width="400" height="120" class="signature-canvas w-full h-28"></canvas>
-                    </div>
-                </div>
-
-                <!-- Form Bottom Action Bar -->
-                <div class="pt-4 flex items-center space-x-3">
-                    <button type="button" onclick="saveReportToHistory()" class="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg text-sm transition text-center shadow-sm">
-                        <i class="fa-solid fa-box-archive mr-1.5"></i> Save to History
-                    </button>
-                    <button type="button" onclick="exportToPDF()" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg text-sm transition text-center shadow-sm">
-                        <i class="fa-solid fa-file-pdf mr-1.5"></i> Download PDF
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </section>
 
-        <!-- Right Column: Live Printable Preview (6 Columns wide on LG) -->
+        <!-- Right Column: Split Screen Live PDF Preview -->
         <section class="lg:col-span-6 flex flex-col">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-full">
-                <!-- Preview Header Bar -->
-                <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center no-print">
+            <div class="glass-card rounded-2xl overflow-hidden shadow-2xl flex flex-col h-full">
+                <!-- Preview Control Header -->
+                <div class="glass-card-header p-4 flex justify-between items-center no-print">
                     <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-eye text-blue-600"></i>
-                        <span class="font-semibold text-slate-800 text-sm">Live Document Preview (A4 Layout)</span>
+                        <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span class="font-bold text-slate-800 text-xs uppercase tracking-wider">A4 Document Live View</span>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="window.print()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-md transition flex items-center space-x-1">
-                            <i class="fa-solid fa-print"></i>
-                            <span>Print</span>
-                        </button>
-                    </div>
+                    <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-800/10 hover:bg-slate-800/20 text-slate-700 text-xs font-bold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Print</span>
+                    </button>
                 </div>
 
-                <!-- Scrollable document preview frame -->
-                <div class="p-4 sm:p-6 overflow-y-auto max-h-[calc(100vh-140px)] bg-slate-200 flex justify-center">
+                <!-- Preview Canvas Frame -->
+                <div class="p-4 sm:p-6 overflow-y-auto max-h-[calc(100vh-140px)] bg-slate-900/10 backdrop-blur-md flex justify-center">
                     
-                    <!-- ACTUAL PDF DOCUMENT TEMPLATE CONTAINER -->
-                    <div id="pdf-template" class="bg-white p-8 text-slate-800 text-xs shadow-lg rounded-sm relative leading-relaxed flex flex-col justify-between">
-                        
+                    <!-- PDF TEMPLATE DOCUMENT FOR PRINT & EXPORT -->
+                    <div id="pdf-template" class="bg-white p-8 text-slate-800 text-xs shadow-2xl rounded-sm relative leading-relaxed flex flex-col justify-between">
                         <div>
                             <!-- Document Header -->
-                            <div class="border-b-2 border-navy-700 pb-4 mb-4 flex justify-between items-start">
+                            <div class="border-b-2 border-slate-800 pb-3 mb-4 flex justify-between items-start">
                                 <div>
-                                    <div class="flex items-center space-x-2 text-navy-900 mb-1">
-                                        <i class="fa-solid fa-gears text-2xl text-blue-600"></i>
-                                        <span class="font-bold text-xl tracking-wider uppercase">SERVICE ENGINEERING</span>
+                                    <div class="flex items-center space-x-2 text-slate-900 mb-1">
+                                        <i class="fa-solid fa-gear text-indigo-600 text-xl"></i>
+                                        <span class="font-extrabold text-lg tracking-wider">TECHNICAL SERVICE REPORT</span>
                                     </div>
-                                    <p class="text-[10px] text-slate-500">TECHNICAL FIELD SERVICE & MAINTENANCE REPORT</p>
+                                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Field Engineering & Equipment Service Log</p>
                                 </div>
                                 <div class="text-right">
-                                    <span class="inline-block px-2.5 py-1 bg-navy-900 text-white font-bold text-xs rounded tracking-widest">DAILY REPORT</span>
-                                    <p class="text-[10px] text-slate-500 mt-1">Ref No: <span id="prev-ref-no" class="font-mono font-semibold text-slate-700">SR-20261110-01</span></p>
+                                    <span class="inline-block px-2 py-0.5 bg-slate-900 text-white font-bold text-[10px] rounded tracking-wider">OFFICIAL COPY</span>
+                                    <p class="text-[10px] text-slate-500 mt-1">Ref: <span id="prev-ref-no" class="font-mono font-bold text-slate-800">SR-20261110-01</span></p>
                                 </div>
                             </div>
 
-                            <!-- Top Details Grid -->
-                            <div class="grid grid-cols-2 gap-4 mb-4 bg-slate-50 p-3 rounded border border-slate-200 text-xs">
+                            <!-- Overview Details Grid -->
+                            <div class="grid grid-cols-2 gap-3 mb-4 bg-slate-50/80 p-3 rounded-md border border-slate-200 text-xs">
                                 <div class="space-y-1">
-                                    <p><span class="font-semibold text-slate-600">Customer Name:</span> <span id="prev-customer" class="font-bold text-navy-900">COMPEQ</span></p>
-                                    <p><span class="font-semibold text-slate-600">Engineer Name:</span> <span id="prev-engineer" class="font-medium text-slate-800">Ekkalak</span></p>
-                                    <p><span class="font-semibold text-slate-600">Work Order No:</span> <span id="prev-wono" class="text-slate-700">-</span></p>
+                                    <p><span class="font-bold text-slate-500">Customer:</span> <span id="prev-customer" class="font-extrabold text-slate-900">COMPEQ</span></p>
+                                    <p><span class="font-bold text-slate-500">Site Location:</span> <span id="prev-site-location" class="font-semibold text-slate-800">-</span></p>
+                                    <p><span class="font-bold text-slate-500">Engineer:</span> <span id="prev-engineer" class="font-semibold text-indigo-900">Ekkalak</span></p>
+                                    <p><span class="font-bold text-slate-500">WO/Ticket:</span> <span id="prev-wono" class="font-mono text-slate-800">-</span></p>
                                 </div>
                                 <div class="space-y-1 text-right">
-                                    <p><span class="font-semibold text-slate-600">Date:</span> <span id="prev-date" class="font-medium">2026-11-10</span></p>
-                                    <p><span class="font-semibold text-slate-600">Service Hours:</span> <span id="prev-hours" class="font-medium">09:00 - 17:00</span></p>
-                                    <p><span class="font-semibold text-slate-600">Service Category:</span> <span id="prev-service-type" class="font-semibold text-blue-700">Breakdown Repair</span></p>
+                                    <p><span class="font-bold text-slate-500">Date:</span> <span id="prev-date" class="font-semibold">2026-11-10</span></p>
+                                    <p><span class="font-bold text-slate-500">Service Hours:</span> <span id="prev-hours" class="font-semibold">08:30 - 17:30</span></p>
+                                    <p><span class="font-bold text-slate-500">Category:</span> <span id="prev-service-type" class="font-bold text-indigo-700">Maintenance</span></p>
                                 </div>
                             </div>
 
-                            <!-- Machine Information -->
-                            <div class="mb-4 border border-slate-200 rounded overflow-hidden">
-                                <div class="bg-slate-100 px-3 py-1.5 font-bold text-slate-700 border-b border-slate-200 text-[11px] uppercase tracking-wide flex justify-between items-center">
-                                    <span>Equipment & Asset Details</span>
-                                    <span id="prev-status-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Operational / Running</span>
+                            <!-- Machine Details Block -->
+                            <div class="mb-4 border border-slate-200 rounded-md overflow-hidden">
+                                <div class="bg-slate-100/90 px-3 py-1 font-bold text-slate-700 border-b border-slate-200 text-[10px] uppercase tracking-wider flex justify-between items-center">
+                                    <span>Equipment Summary</span>
+                                    <span id="prev-status-badge" class="px-2 py-0.5 rounded text-[9px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300">Operational / Running</span>
                                 </div>
-                                <div class="p-3 grid grid-cols-2 gap-4 text-xs">
+                                <div class="p-2.5 grid grid-cols-2 gap-3 text-xs">
                                     <div>
-                                        <span class="text-slate-500 block text-[10px]">Machine Name / Model</span>
-                                        <span id="prev-machine-name" class="font-bold text-slate-800">CNC Milling Machine</span>
+                                        <span class="text-slate-400 block text-[9px] font-bold">MACHINE MODEL / NAME</span>
+                                        <span id="prev-machine-name" class="font-extrabold text-slate-800">CNC Router X8</span>
                                     </div>
                                     <div>
-                                        <span class="text-slate-500 block text-[10px]">Serial Number</span>
-                                        <span id="prev-serial-no" class="font-mono text-slate-800">SN-8849-X</span>
+                                        <span class="text-slate-400 block text-[9px] font-bold">SERIAL NUMBER</span>
+                                        <span id="prev-serial-no" class="font-mono font-bold text-slate-800">SN-2026-991A</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Problem & Symptom Description -->
-                            <div class="mb-4">
-                                <h4 class="font-bold text-slate-700 text-[11px] uppercase tracking-wide mb-1 border-b pb-1">1. Problem Description & Symptom</h4>
-                                <p id="prev-symptom" class="text-slate-700 whitespace-pre-wrap bg-slate-50/50 p-2.5 rounded border border-slate-200 min-h-[50px] leading-normal">
-                                    Machine stopped unexpectedly during routine operation. Main spindle overload alarm triggered on panel.
+                            <!-- Problem & Symptom -->
+                            <div class="mb-3">
+                                <h4 class="font-bold text-slate-700 text-[10px] uppercase tracking-wider mb-1 border-b pb-0.5">1. Symptom & Problem Diagnosis</h4>
+                                <p id="prev-symptom" class="text-slate-800 whitespace-pre-wrap bg-slate-50/60 p-2.5 rounded border border-slate-200 min-h-[45px]">
+                                    Reported main spindle abnormal vibration during high RPM operation.
                                 </p>
                             </div>
 
-                            <!-- Action Taken / Repairs Performed -->
-                            <div class="mb-4">
-                                <h4 class="font-bold text-slate-700 text-[11px] uppercase tracking-wide mb-1 border-b pb-1">2. Maintenance Action & Troubleshooting Performed</h4>
-                                <p id="prev-action" class="text-slate-700 whitespace-pre-wrap bg-slate-50/50 p-2.5 rounded border border-slate-200 min-h-[70px] leading-normal">
-                                    Inspected spindle motor bearings, cleared debris from drive belt mechanism, calibrated motor drive parameter set, and tested full auto cycle.
+                            <!-- Action & Solution -->
+                            <div class="mb-3">
+                                <h4 class="font-bold text-slate-700 text-[10px] uppercase tracking-wider mb-1 border-b pb-0.5">2. Action Taken & Technical Solution</h4>
+                                <p id="prev-action" class="text-slate-800 whitespace-pre-wrap bg-slate-50/60 p-2.5 rounded border border-slate-200 min-h-[55px]">
+                                    Replaced bearing pack, recalibrated spindle concentricity alignment, and conducted 30-min trial run.
                                 </p>
                             </div>
 
-                            <!-- Spare Parts Table -->
-                            <div class="mb-4">
-                                <h4 class="font-bold text-slate-700 text-[11px] uppercase tracking-wide mb-1.5 border-b pb-1">3. Spare Parts & Components Replaced</h4>
-                                <table class="w-full text-left border-collapse border border-slate-200 text-xs">
+                            <!-- Parts Table -->
+                            <div class="mb-3">
+                                <h4 class="font-bold text-slate-700 text-[10px] uppercase tracking-wider mb-1 border-b pb-0.5">3. Replaced Spare Parts</h4>
+                                <table class="w-full text-left border-collapse border border-slate-200 text-[11px]">
                                     <thead>
-                                        <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-semibold">
-                                            <th class="p-1.5 border-r border-slate-200 w-1/3">Part No.</th>
-                                            <th class="p-1.5 border-r border-slate-200">Description</th>
-                                            <th class="p-1.5 text-center w-16">Qty</th>
+                                        <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200 text-[10px]">
+                                            <th class="p-1 border-r border-slate-200">Part Name</th>
+                                            <th class="p-1 border-r border-slate-200">Part No</th>
+                                            <th class="p-1 text-center w-10 border-r border-slate-200">Qty</th>
+                                            <th class="p-1 w-12 border-r border-slate-200">Unit</th>
+                                            <th class="p-1">Remarks</th>
                                         </tr>
                                     </thead>
                                     <tbody id="prev-parts-body">
-                                        <tr>
-                                            <td colspan="3" class="p-2 text-center text-slate-400 italic">No spare parts replaced</td>
-                                        </tr>
+                                        <!-- Dynamic Rows -->
                                     </tbody>
                                 </table>
                             </div>
 
                             <!-- Recommendations -->
-                            <div class="mb-6">
-                                <h4 class="font-bold text-slate-700 text-[11px] uppercase tracking-wide mb-1 border-b pb-1">4. Follow-up & Engineer Recommendations</h4>
-                                <p id="prev-recommendation" class="text-slate-700 whitespace-pre-wrap bg-slate-50/50 p-2 rounded border border-slate-200 min-h-[35px]">
-                                    Recommend replacing main drive belt during the next routine PM interval in 30 days.
+                            <div class="mb-4">
+                                <h4 class="font-bold text-slate-700 text-[10px] uppercase tracking-wider mb-1 border-b pb-0.5">4. Recommendations & Precautions</h4>
+                                <p id="prev-recommendation" class="text-slate-800 whitespace-pre-wrap bg-slate-50/60 p-2 rounded border border-slate-200 min-h-[30px]">
+                                    Keep spindle lubrication levels checked weekly.
                                 </p>
                             </div>
                         </div>
 
-                        <!-- Signatures & Acknowledgement Footer -->
-                        <div class="pt-4 border-t-2 border-slate-300 mt-auto">
-                            <div class="grid grid-cols-2 gap-8 text-center">
-                                <!-- Engineer Sign Box -->
+                        <!-- Signatures & Verification -->
+                        <div class="pt-3 border-t-2 border-slate-300 mt-auto">
+                            <div class="grid grid-cols-2 gap-6 text-center">
                                 <div class="flex flex-col items-center">
-                                    <p class="font-semibold text-slate-700 text-[11px] mb-1">Service Engineer</p>
-                                    <div class="h-16 w-48 border-b border-slate-300 flex items-center justify-center overflow-hidden my-1">
+                                    <p class="font-bold text-slate-600 text-[10px] mb-1">Service Engineer</p>
+                                    <div class="h-14 w-44 border-b border-slate-300 flex items-center justify-center overflow-hidden my-0.5">
                                         <img id="prev-engineer-sig" class="max-h-full max-w-full object-contain hidden" alt="Engineer Signature">
-                                        <span id="prev-engineer-sig-placeholder" class="text-slate-300 text-[10px] italic">Signature On File</span>
+                                        <span id="prev-engineer-sig-placeholder" class="text-slate-300 text-[9px] italic">Signed Electronically</span>
                                     </div>
-                                    <p id="prev-engineer-sig-name" class="font-bold text-slate-800 mt-1">Ekkalak</p>
-                                    <span class="text-[10px] text-slate-400">Authorized Engineer</span>
+                                    <p id="prev-engineer-sig-name" class="font-extrabold text-slate-900 mt-0.5">Ekkalak</p>
+                                    <span class="text-[9px] text-slate-400 font-medium">Authorized Engineer</span>
                                 </div>
 
-                                <!-- Customer Sign Box -->
                                 <div class="flex flex-col items-center">
-                                    <p class="font-semibold text-slate-700 text-[11px] mb-1">Customer Acknowledgement</p>
-                                    <div class="h-16 w-48 border-b border-slate-300 flex items-center justify-center overflow-hidden my-1">
+                                    <p class="font-bold text-slate-600 text-[10px] mb-1">Customer Representative</p>
+                                    <div class="h-14 w-44 border-b border-slate-300 flex items-center justify-center overflow-hidden my-0.5">
                                         <img id="prev-customer-sig" class="max-h-full max-w-full object-contain hidden" alt="Customer Signature">
-                                        <span id="prev-customer-sig-placeholder" class="text-slate-300 text-[10px] italic">Pending Signature</span>
+                                        <span id="prev-customer-sig-placeholder" class="text-slate-300 text-[9px] italic">Pending Signature</span>
                                     </div>
-                                    <p id="prev-customer-sig-name" class="font-bold text-slate-800 mt-1">Customer Representative</p>
-                                    <span class="text-[10px] text-slate-400">Accepted & Verified</span>
+                                    <p id="prev-customer-sig-name" class="font-extrabold text-slate-900 mt-0.5">Customer Representative</p>
+                                    <span class="text-[9px] text-slate-400 font-medium">Verified & Accepted</span>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                    <!-- END PDF DOCUMENT TEMPLATE CONTAINER -->
+                    <!-- END PDF TEMPLATE -->
 
                 </div>
             </div>
@@ -514,34 +619,40 @@
 
     </main>
 
-    <!-- History Log Side Drawer Modal -->
-    <div id="history-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onclick="toggleHistoryDrawer()"></div>
+    <!-- History Drawer Modal -->
+    <div id="history-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity" onclick="toggleHistoryDrawer()"></div>
 
         <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-            <div class="pointer-events-auto w-screen max-w-md bg-white shadow-xl flex flex-col">
-                <!-- Drawer Header -->
-                <div class="p-4 sm:p-6 bg-navy-900 text-white flex justify-between items-center">
+            <div class="pointer-events-auto w-screen max-w-md bg-slate-900/90 text-white backdrop-blur-xl border-l border-white/10 shadow-2xl flex flex-col">
+                <div class="p-5 border-b border-white/10 flex justify-between items-center">
                     <div>
-                        <h2 class="text-base font-bold">Saved Report History</h2>
-                        <p class="text-xs text-slate-400">Manage and reload past daily reports</p>
+                        <h2 class="text-base font-bold text-white">Saved Report History</h2>
+                        <p class="text-xs text-slate-400">Search and reload past daily reports</p>
                     </div>
                     <button onclick="toggleHistoryDrawer()" class="text-slate-400 hover:text-white p-1">
-                        <i class="fa-solid fa-xmark text-xl"></i>
+                        <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
 
-                <!-- History Items List -->
+                <!-- History Search Bar -->
+                <div class="p-4 border-b border-white/10">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" id="history-search" oninput="filterHistoryList()" placeholder="Search by customer, engineer, WO..." class="w-full pl-9 pr-3 py-2 bg-slate-800/80 border border-white/10 rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500">
+                    </div>
+                </div>
+
+                <!-- History List -->
                 <div id="history-list-container" class="flex-grow p-4 overflow-y-auto space-y-3">
-                    <!-- Populated dynamically -->
+                    <!-- Dynamic Items -->
                 </div>
 
-                <!-- Drawer Footer -->
-                <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-between items-center">
-                    <button onclick="clearAllHistory()" class="text-xs font-semibold text-rose-600 hover:text-rose-700">
-                        <i class="fa-solid fa-trash mr-1"></i> Clear All History
+                <div class="p-4 border-t border-white/10 bg-slate-950/50 flex justify-between items-center">
+                    <button onclick="openConfirmModal('clear-all')" class="text-xs font-semibold text-rose-400 hover:text-rose-300">
+                        <i class="fa-solid fa-trash mr-1"></i> Clear History
                     </button>
-                    <button onclick="toggleHistoryDrawer()" class="px-4 py-2 bg-slate-800 text-white text-xs font-medium rounded-lg">
+                    <button onclick="toggleHistoryDrawer()" class="px-4 py-2 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-700">
                         Close
                     </button>
                 </div>
@@ -549,43 +660,58 @@
         </div>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-navy-900 text-white text-xs px-4 py-3 rounded-lg shadow-xl flex items-center space-x-2 transition-all duration-300 opacity-0 translate-y-5 pointer-events-none z-50">
+    <!-- Custom Glass Confirmation Modal (Replaces browser alert/confirm) -->
+    <div id="confirm-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-md" onclick="closeConfirmModal()"></div>
+        <div class="relative glass-card bg-slate-900/90 text-white border border-white/20 p-6 rounded-2xl max-w-sm w-full shadow-2xl z-10 text-center space-y-4">
+            <div class="w-12 h-12 rounded-full bg-indigo-500/20 border border-indigo-400/40 text-indigo-400 flex items-center justify-center mx-auto text-xl">
+                <i id="confirm-modal-icon" class="fa-solid fa-circle-question"></i>
+            </div>
+            <div>
+                <h3 id="confirm-modal-title" class="font-bold text-base text-white">Are you sure?</h3>
+                <p id="confirm-modal-desc" class="text-xs text-slate-300 mt-1">This action cannot be undone.</p>
+            </div>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeConfirmModal()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold rounded-xl text-slate-300">Cancel</button>
+                <button id="confirm-modal-action-btn" class="flex-1 py-2 bg-rose-600 hover:bg-rose-500 text-xs font-bold rounded-xl text-white">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900/90 text-white backdrop-blur-xl border border-white/15 text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all duration-300 opacity-0 translate-y-5 pointer-events-none z-50">
         <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-        <span id="toast-message" class="font-medium">Draft saved successfully!</span>
+        <span id="toast-message" class="font-semibold">Action completed successfully</span>
     </div>
 
     <!-- Application Scripting Logic -->
     <script>
-        // Global State & Data Models
+        // Data Structures & Canvas Handles
         let sparePartsList = [];
         let engPadCtx, custPadCtx;
-        let isDrawingEng = false, isDrawingCust = false;
         let engSigData = null, custSigData = null;
+        let pendingModalAction = null;
 
-        // Initialize Application
         window.addEventListener('DOMContentLoaded', () => {
-            // Set default date to today
+            // Default Date & Times
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('field-date').value = today;
             document.getElementById('field-time-in').value = '08:30';
             document.getElementById('field-time-out').value = '17:30';
 
-            // Add initial spare part row sample
+            // Sample Spare Part
             sparePartsList = [
-                { partNo: 'SP-9921', desc: 'Main Spindle Bearing Assembly', qty: 1 }
+                { partName: 'Main Spindle Bearing', partNo: 'SP-9921', qty: 1, unit: 'pcs', remarks: 'Replaced pack' }
             ];
             renderPartsTable();
 
-            // Setup Signature Canvases
+            // Signatures & Initial Load
             initSignaturePads();
-
-            // Load stored drafts or update preview
             loadStoredCount();
             updatePreview();
         });
 
-        // Toggle custom engineer input
+        // Dropdown Handlers
         function handleEngineerSelect(value) {
             const customInput = document.getElementById('field-engineer-custom');
             if (value === 'CUSTOM') {
@@ -597,7 +723,6 @@
             updatePreview();
         }
 
-        // Toggle custom customer input
         function handleCustomerSelect(value) {
             const customInput = document.getElementById('field-customer-custom');
             if (value === 'CUSTOM') {
@@ -609,22 +734,20 @@
             updatePreview();
         }
 
-        // Get active Engineer Name
         function getEngineerName() {
-            const selectVal = document.getElementById('field-engineer-select').value;
-            if (selectVal === 'CUSTOM') {
+            const val = document.getElementById('field-engineer-select').value;
+            if (val === 'CUSTOM') {
                 return document.getElementById('field-engineer-custom').value.trim() || 'Custom Engineer';
             }
-            return selectVal;
+            return val;
         }
 
-        // Get active Customer Name
         function getCustomerName() {
-            const selectVal = document.getElementById('field-customer-select').value;
-            if (selectVal === 'CUSTOM') {
+            const val = document.getElementById('field-customer-select').value;
+            if (val === 'CUSTOM') {
                 return document.getElementById('field-customer-custom').value.trim() || 'Custom Customer';
             }
-            return selectVal;
+            return val;
         }
 
         // Dynamic Spare Parts Functions
@@ -633,23 +756,19 @@
             tbody.innerHTML = '';
 
             if (sparePartsList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-slate-400 italic">No parts added yet. Click "Add Part" above.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="p-3 text-center text-slate-400 italic text-xs">No spare parts added. Click "+ Add Part" above.</td></tr>`;
             } else {
                 sparePartsList.forEach((part, index) => {
                     const tr = document.createElement('tr');
-                    tr.className = 'hover:bg-slate-50';
+                    tr.className = 'hover:bg-white/40 transition';
                     tr.innerHTML = `
-                        <td class="p-2">
-                            <input type="text" value="${escapeHtml(part.partNo)}" oninput="updatePartItem(${index}, 'partNo', this.value)" placeholder="Part No." class="w-full px-2 py-1 text-xs border border-slate-200 rounded">
-                        </td>
-                        <td class="p-2">
-                            <input type="text" value="${escapeHtml(part.desc)}" oninput="updatePartItem(${index}, 'desc', this.value)" placeholder="Description" class="w-full px-2 py-1 text-xs border border-slate-200 rounded">
-                        </td>
+                        <td class="p-2"><input type="text" value="${escapeHtml(part.partName)}" oninput="updatePartItem(${index}, 'partName', this.value)" placeholder="Part Name" class="glass-input w-full px-2 py-1 text-xs rounded-lg"></td>
+                        <td class="p-2"><input type="text" value="${escapeHtml(part.partNo)}" oninput="updatePartItem(${index}, 'partNo', this.value)" placeholder="Part No." class="glass-input w-full px-2 py-1 text-xs rounded-lg"></td>
+                        <td class="p-2"><input type="number" min="1" value="${part.qty}" oninput="updatePartItem(${index}, 'qty', this.value)" class="glass-input w-full px-1 py-1 text-xs text-center rounded-lg"></td>
+                        <td class="p-2"><input type="text" value="${escapeHtml(part.unit || 'pcs')}" oninput="updatePartItem(${index}, 'unit', this.value)" placeholder="pcs" class="glass-input w-full px-2 py-1 text-xs rounded-lg"></td>
+                        <td class="p-2"><input type="text" value="${escapeHtml(part.remarks || '')}" oninput="updatePartItem(${index}, 'remarks', this.value)" placeholder="Remarks" class="glass-input w-full px-2 py-1 text-xs rounded-lg"></td>
                         <td class="p-2 text-center">
-                            <input type="number" min="1" value="${part.qty}" oninput="updatePartItem(${index}, 'qty', this.value)" class="w-full px-1 py-1 text-xs text-center border border-slate-200 rounded">
-                        </td>
-                        <td class="p-2 text-center">
-                            <button type="button" onclick="removePartRow(${index})" class="text-slate-400 hover:text-rose-600 p-1">
+                            <button type="button" onclick="removePartRow(${index})" class="text-slate-400 hover:text-rose-600 p-1 transition">
                                 <i class="fa-solid fa-trash text-xs"></i>
                             </button>
                         </td>
@@ -661,7 +780,7 @@
         }
 
         function addPartRow() {
-            sparePartsList.push({ partNo: '', desc: '', qty: 1 });
+            sparePartsList.push({ partName: '', partNo: '', qty: 1, unit: 'pcs', remarks: '' });
             renderPartsTable();
         }
 
@@ -677,29 +796,27 @@
 
         // Live Document Preview Synchronization
         function updatePreview() {
-            // Engineer & Customer
             const engName = getEngineerName();
             const custName = getCustomerName();
             document.getElementById('prev-engineer').textContent = engName;
             document.getElementById('prev-engineer-sig-name').textContent = engName;
             document.getElementById('prev-customer').textContent = custName;
 
-            // Date & Hours
+            const siteLocation = document.getElementById('field-site-location').value.trim() || '-';
+            document.getElementById('prev-site-location').textContent = siteLocation;
+
             const dateVal = document.getElementById('field-date').value || 'YYYY-MM-DD';
             const timeIn = document.getElementById('field-time-in').value || '00:00';
             const timeOut = document.getElementById('field-time-out').value || '00:00';
             document.getElementById('prev-date').textContent = dateVal;
             document.getElementById('prev-hours').textContent = `${timeIn} - ${timeOut}`;
 
-            // WO Number & Ref
             const wono = document.getElementById('field-wono').value.trim() || '-';
             document.getElementById('prev-wono').textContent = wono;
 
-            // Generate clean Document Reference Number
             const cleanDate = dateVal.replace(/-/g, '');
             document.getElementById('prev-ref-no').textContent = `SR-${cleanDate}-${wono !== '-' ? wono : '01'}`;
 
-            // Machine details
             document.getElementById('prev-machine-name').textContent = document.getElementById('field-machine-name').value.trim() || 'N/A';
             document.getElementById('prev-serial-no').textContent = document.getElementById('field-serial-no').value.trim() || 'N/A';
             document.getElementById('prev-service-type').textContent = document.getElementById('field-service-type').value;
@@ -710,49 +827,49 @@
             const badgeEl = document.getElementById('prev-status-badge');
             badgeEl.textContent = statusVal;
 
-            // Badge Color variants
-            badgeEl.className = 'px-2 py-0.5 rounded text-[10px] font-bold ';
-            if (statusVal === 'Operational / Running') {
+            badgeEl.className = 'px-2 py-0.5 rounded text-[9px] font-extrabold ';
+            if (statusVal.includes('Running')) {
                 badgeEl.className += 'bg-emerald-100 text-emerald-800 border border-emerald-300';
-            } else if (statusVal === 'Operational with Warning') {
+            } else if (statusVal.includes('Warning')) {
                 badgeEl.className += 'bg-amber-100 text-amber-800 border border-amber-300';
-            } else if (statusVal === 'Pending Spare Parts') {
+            } else if (statusVal.includes('Pending')) {
                 badgeEl.className += 'bg-blue-100 text-blue-800 border border-blue-300';
             } else {
                 badgeEl.className += 'bg-rose-100 text-rose-800 border border-rose-300';
             }
 
-            // Text areas
+            // Text Areas
             document.getElementById('prev-symptom').textContent = document.getElementById('field-symptom').value.trim() || 'No description provided.';
             document.getElementById('prev-action').textContent = document.getElementById('field-action').value.trim() || 'No action detailed.';
             document.getElementById('prev-recommendation').textContent = document.getElementById('field-recommendation').value.trim() || 'None.';
 
-            // Customer Rep Name
             const custRep = document.getElementById('field-customer-rep').value.trim() || 'Customer Representative';
             document.getElementById('prev-customer-sig-name').textContent = custRep;
 
-            // Render Spare Parts Table in Preview
+            // Spare Parts Table in Preview
             const prevPartsBody = document.getElementById('prev-parts-body');
             prevPartsBody.innerHTML = '';
             
-            const validParts = sparePartsList.filter(p => p.partNo.trim() !== '' || p.desc.trim() !== '');
+            const validParts = sparePartsList.filter(p => p.partName.trim() !== '' || p.partNo.trim() !== '');
             if (validParts.length === 0) {
-                prevPartsBody.innerHTML = `<tr><td colspan="3" class="p-2 text-center text-slate-400 italic">No spare parts replaced</td></tr>`;
+                prevPartsBody.innerHTML = `<tr><td colspan="5" class="p-1.5 text-center text-slate-400 italic">No spare parts replaced</td></tr>`;
             } else {
                 validParts.forEach(p => {
                     const tr = document.createElement('tr');
                     tr.className = 'border-b border-slate-100';
                     tr.innerHTML = `
-                        <td class="p-1.5 font-mono border-r border-slate-200 text-slate-800">${escapeHtml(p.partNo || '-')}</td>
-                        <td class="p-1.5 border-r border-slate-200 text-slate-700">${escapeHtml(p.desc || '-')}</td>
-                        <td class="p-1.5 text-center font-semibold text-slate-800">${p.qty}</td>
+                        <td class="p-1 font-semibold border-r border-slate-200 text-slate-800">${escapeHtml(p.partName || '-')}</td>
+                        <td class="p-1 font-mono border-r border-slate-200 text-slate-700">${escapeHtml(p.partNo || '-')}</td>
+                        <td class="p-1 text-center font-bold border-r border-slate-200 text-slate-800">${p.qty}</td>
+                        <td class="p-1 border-r border-slate-200 text-slate-700">${escapeHtml(p.unit || 'pcs')}</td>
+                        <td class="p-1 text-slate-600">${escapeHtml(p.remarks || '-')}</td>
                     `;
                     prevPartsBody.appendChild(tr);
                 });
             }
         }
 
-        // Setup Digital Signature Pads (Canvas Drawing Logic)
+        // Digital Signature Canvas Setup
         function initSignaturePads() {
             const engCanvas = document.getElementById('engineer-pad');
             const custCanvas = document.getElementById('customer-pad');
@@ -788,7 +905,7 @@
 
         function setupCanvasContext(canvas, onChangeCallback) {
             const ctx = canvas.getContext('2d');
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 2.5;
             ctx.lineCap = 'round';
             ctx.strokeStyle = '#0f172a';
 
@@ -852,10 +969,10 @@
                 document.getElementById('prev-customer-sig').classList.add('hidden');
                 document.getElementById('prev-customer-sig-placeholder').classList.remove('hidden');
             }
-            showToast('Signature cleared');
+            showToast('Signature cleared', 'info');
         }
 
-        // Export to PDF using html2pdf.js
+        // PDF Export Engine
         function exportToPDF() {
             const element = document.getElementById('pdf-template');
             const custName = getCustomerName().replace(/[^a-zA-Z0-9]/g, '_');
@@ -865,7 +982,7 @@
             showToast('Generating PDF document...', 'info');
 
             const opt = {
-                margin:       [10, 10, 10, 10], // top, left, bottom, right in mm
+                margin:       [8, 8, 8, 8],
                 filename:     filename,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true, logging: false },
@@ -876,12 +993,12 @@
                 showToast('PDF downloaded successfully!', 'success');
             }).catch(err => {
                 console.error(err);
-                showToast('Error generating PDF. Using window print fallback.', 'error');
+                showToast('Error exporting PDF. Fallback to print window.', 'error');
                 window.print();
             });
         }
 
-        // Form Payload Collector
+        // Payload Construction & Storage
         function getFormPayload() {
             return {
                 id: 'RPT-' + Date.now(),
@@ -896,6 +1013,8 @@
                 customerSelect: document.getElementById('field-customer-select').value,
                 customerCustom: document.getElementById('field-customer-custom').value,
                 customerName: getCustomerName(),
+                siteLocation: document.getElementById('field-site-location').value,
+                customerRep: document.getElementById('field-customer-rep').value,
                 machineName: document.getElementById('field-machine-name').value,
                 serialNo: document.getElementById('field-serial-no').value,
                 serviceType: document.getElementById('field-service-type').value,
@@ -904,23 +1023,21 @@
                 parts: [...sparePartsList],
                 status: document.querySelector('input[name="machine-status"]:checked')?.value || 'Operational / Running',
                 recommendation: document.getElementById('field-recommendation').value,
-                customerRep: document.getElementById('field-customer-rep').value,
                 engSigData: engSigData,
                 custSigData: custSigData
             };
         }
 
-        // LocalStorage Draft & History Management
         function saveDraft() {
             const data = getFormPayload();
             localStorage.setItem('service_report_draft', JSON.stringify(data));
-            showToast('Draft saved locally!', 'success');
+            showToast('Draft saved to storage!', 'success');
         }
 
         function saveReportToHistory() {
             const data = getFormPayload();
             let history = JSON.parse(localStorage.getItem('service_report_history') || '[]');
-            history.unshift(data); // Add to beginning
+            history.unshift(data);
             localStorage.setItem('service_report_history', JSON.stringify(history));
             loadStoredCount();
             showToast('Report saved to History Log!', 'success');
@@ -941,15 +1058,25 @@
             }
         }
 
-        function renderHistoryList() {
+        function renderHistoryList(filterText = '') {
             const container = document.getElementById('history-list-container');
-            const history = JSON.parse(localStorage.getItem('service_report_history') || '[]');
+            let history = JSON.parse(localStorage.getItem('service_report_history') || '[]');
+
+            if (filterText.trim()) {
+                const q = filterText.toLowerCase();
+                history = history.filter(item => 
+                    item.customerName.toLowerCase().includes(q) ||
+                    item.engineerName.toLowerCase().includes(q) ||
+                    (item.wono && item.wono.toLowerCase().includes(q)) ||
+                    (item.machineName && item.machineName.toLowerCase().includes(q))
+                );
+            }
 
             if (history.length === 0) {
                 container.innerHTML = `
                     <div class="text-center py-10 text-slate-400">
-                        <i class="fa-solid fa-folder-open text-4xl mb-2"></i>
-                        <p class="text-xs">No saved report history found.</p>
+                        <i class="fa-solid fa-folder-open text-3xl mb-2"></i>
+                        <p class="text-xs">No reports found.</p>
                     </div>
                 `;
                 return;
@@ -958,24 +1085,24 @@
             container.innerHTML = '';
             history.forEach((item) => {
                 const card = document.createElement('div');
-                card.className = 'p-3.5 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition space-y-2';
+                card.className = 'p-3.5 bg-slate-800/60 hover:bg-slate-800/90 rounded-xl border border-white/10 transition space-y-2';
                 card.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div>
-                            <span class="font-bold text-slate-800 text-xs">${escapeHtml(item.customerName)}</span>
-                            <span class="text-[10px] text-slate-500 block">${item.date} (${item.timeIn} - ${item.timeOut})</span>
+                            <span class="font-bold text-white text-xs">${escapeHtml(item.customerName)}</span>
+                            <span class="text-[10px] text-slate-400 block">${item.date}</span>
                         </div>
-                        <span class="text-[10px] px-2 py-0.5 rounded font-semibold bg-blue-100 text-blue-800">${escapeHtml(item.serviceType)}</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">${escapeHtml(item.serviceType)}</span>
                     </div>
-                    <div class="text-xs text-slate-600">
-                        <p><span class="font-medium">Engineer:</span> ${escapeHtml(item.engineerName)}</p>
-                        <p><span class="font-medium">Machine:</span> ${escapeHtml(item.machineName || 'N/A')}</p>
+                    <div class="text-[11px] text-slate-300 space-y-0.5">
+                        <p><span class="text-slate-400">Engineer:</span> ${escapeHtml(item.engineerName)}</p>
+                        <p><span class="text-slate-400">Machine:</span> ${escapeHtml(item.machineName || 'N/A')}</p>
                     </div>
-                    <div class="pt-2 border-t border-slate-200 flex space-x-2">
-                        <button onclick="loadReportItem('${item.id}')" class="flex-1 py-1 bg-slate-800 text-white text-[11px] font-medium rounded hover:bg-slate-700">
-                            Load Report
+                    <div class="pt-2 border-t border-white/10 flex space-x-2">
+                        <button onclick="loadReportItem('${item.id}')" class="flex-1 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold rounded-lg">
+                            Load
                         </button>
-                        <button onclick="deleteHistoryItem('${item.id}')" class="px-2.5 py-1 bg-rose-50 text-rose-600 hover:bg-rose-100 text-[11px] font-medium rounded">
+                        <button onclick="deleteHistoryItem('${item.id}')" class="px-2.5 py-1 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-[11px] font-bold rounded-lg border border-rose-400/30">
                             Delete
                         </button>
                     </div>
@@ -984,18 +1111,21 @@
             });
         }
 
+        function filterHistoryList() {
+            const query = document.getElementById('history-search').value;
+            renderHistoryList(query);
+        }
+
         function loadReportItem(id) {
             const history = JSON.parse(localStorage.getItem('service_report_history') || '[]');
             const item = history.find(r => r.id === id);
             if (!item) return;
 
-            // Populate form
             document.getElementById('field-date').value = item.date || '';
             document.getElementById('field-time-in').value = item.timeIn || '';
             document.getElementById('field-time-out').value = item.timeOut || '';
             document.getElementById('field-wono').value = item.wono || '';
             
-            // Engineer dropdown
             const engSelect = document.getElementById('field-engineer-select');
             if (['Ekkalak', 'Amphon', 'Sirawit', 'Suratham'].includes(item.engineerSelect)) {
                 engSelect.value = item.engineerSelect;
@@ -1007,7 +1137,6 @@
                 customIn.classList.remove('hidden');
             }
 
-            // Customer dropdown
             const custSelect = document.getElementById('field-customer-select');
             if (['COMPEQ', 'Dynamic', 'Avary', 'Olympic', 'SYE', 'Unitech', 'WUS'].includes(item.customerSelect)) {
                 custSelect.value = item.customerSelect;
@@ -1019,25 +1148,23 @@
                 customCust.classList.remove('hidden');
             }
 
+            document.getElementById('field-site-location').value = item.siteLocation || '';
+            document.getElementById('field-customer-rep').value = item.customerRep || '';
             document.getElementById('field-machine-name').value = item.machineName || '';
             document.getElementById('field-serial-no').value = item.serialNo || '';
-            document.getElementById('field-service-type').value = item.serviceType || 'Breakdown Repair';
+            document.getElementById('field-service-type').value = item.serviceType || 'Maintenance';
             document.getElementById('field-symptom').value = item.symptom || '';
             document.getElementById('field-action').value = item.action || '';
             document.getElementById('field-recommendation').value = item.recommendation || '';
-            document.getElementById('field-customer-rep').value = item.customerRep || '';
 
-            // Status Radio
             const radios = document.querySelectorAll('input[name="machine-status"]');
             radios.forEach(r => {
                 r.checked = (r.value === item.status);
             });
 
-            // Spare Parts
             sparePartsList = item.parts || [];
             renderPartsTable();
 
-            // Signatures
             if (item.engSigData) {
                 engSigData = item.engSigData;
                 const img = document.getElementById('prev-engineer-sig');
@@ -1055,7 +1182,7 @@
 
             toggleHistoryDrawer();
             updatePreview();
-            showToast('Report loaded into editor', 'info');
+            showToast('Report loaded into form editor', 'info');
         }
 
         function deleteHistoryItem(id) {
@@ -1063,40 +1190,66 @@
             history = history.filter(r => r.id !== id);
             localStorage.setItem('service_report_history', JSON.stringify(history));
             loadStoredCount();
+            renderHistoryList(document.getElementById('history-search').value);
+            showToast('History record deleted', 'info');
+        }
+
+        // Custom Glass Confirmation Modal Trigger
+        function openConfirmModal(type) {
+            pendingModalAction = type;
+            const modal = document.getElementById('confirm-modal');
+            const title = document.getElementById('confirm-modal-title');
+            const desc = document.getElementById('confirm-modal-desc');
+            const actionBtn = document.getElementById('confirm-modal-action-btn');
+
+            if (type === 'reset') {
+                title.textContent = 'Reset Form?';
+                desc.textContent = 'This will clear all current inputs and signature pads.';
+                actionBtn.textContent = 'Reset Now';
+                actionBtn.onclick = () => {
+                    executeResetForm();
+                    closeConfirmModal();
+                };
+            } else if (type === 'clear-all') {
+                title.textContent = 'Clear All History?';
+                desc.textContent = 'Permanently delete all saved daily reports in storage.';
+                actionBtn.textContent = 'Delete All';
+                actionBtn.onclick = () => {
+                    executeClearAllHistory();
+                    closeConfirmModal();
+                };
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirm-modal').classList.add('hidden');
+        }
+
+        function executeResetForm() {
+            document.getElementById('report-form').reset();
+            sparePartsList = [];
+            renderPartsTable();
+            clearSignature('engineer');
+            clearSignature('customer');
+            document.getElementById('field-engineer-custom').classList.add('hidden');
+            document.getElementById('field-customer-custom').classList.add('hidden');
+            updatePreview();
+            showToast('Form reset complete', 'info');
+        }
+
+        function executeClearAllHistory() {
+            localStorage.removeItem('service_report_history');
+            loadStoredCount();
             renderHistoryList();
-            showToast('History item removed', 'info');
+            showToast('All history cleared', 'info');
         }
 
-        function clearAllHistory() {
-            if (confirm('Are you sure you want to delete ALL saved report history?')) {
-                localStorage.removeItem('service_report_history');
-                loadStoredCount();
-                renderHistoryList();
-                showToast('History cleared', 'info');
-            }
-        }
-
-        function resetForm() {
-            if (confirm('Reset form fields to blank?')) {
-                document.getElementById('report-form').reset();
-                sparePartsList = [];
-                renderPartsTable();
-                clearSignature('engineer');
-                clearSignature('customer');
-                document.getElementById('field-engineer-custom').classList.add('hidden');
-                document.getElementById('field-customer-custom').classList.add('hidden');
-                updatePreview();
-                showToast('Form reset', 'info');
-            }
-        }
-
-        // Utility: Escape HTML text to prevent injection
         function escapeHtml(str) {
             if (!str) return '';
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
 
-        // UI Toast Notifications
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             const icon = document.getElementById('toast-icon');
@@ -1109,7 +1262,7 @@
             } else if (type === 'error') {
                 icon.className = 'fa-solid fa-circle-exclamation text-rose-400 text-base';
             } else {
-                icon.className = 'fa-solid fa-circle-info text-blue-400 text-base';
+                icon.className = 'fa-solid fa-circle-info text-cyan-400 text-base';
             }
 
             toast.classList.remove('opacity-0', 'translate-y-5', 'pointer-events-none');
